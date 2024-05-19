@@ -62,20 +62,23 @@ def add_record():
     
 @app.route("/db_record", methods=['GET','POST'])
 def add_db_record():
-    if request.method=="POST":        
-        data = request.get_json()        
-        new_friend = Friend(name=data['name'], city=data['city'], contact=data['contact'])        
-        db.session.add(new_friend)
+    # if request.method=="POST":        
+    #     data = request.get_json()        
+    #     new_friend = Friend(name=data['name'], city=data['city'], contact=data['contact'])        
+    #     db.session.add(new_friend)
+    #     db.session.commit()
+    #     return jsonify({'msg':"Friend Added"})
+    # else:
+    #     return "Please add record via postman in json format"
+    if request.method =="POST":
+        new_record = Friend(name=request.form['name'], city=request.form['city'], contact=request.form['contact'])        
+        db.session.add(new_record)
         db.session.commit()
         return jsonify({'msg':"Friend Added"})
     else:
         return "Please add record via postman in json format"
-    # if request.method =="POST":
-    #     record = {'name':request.form['name'], 'city':request.form['city'], 'contact':request.form['contact']}
-    #     data.append(record)
-    #     return "Record Addedd Successfully"
-    # else:
-    #     return render_template('response.html')
+        
+    
     
     
     
